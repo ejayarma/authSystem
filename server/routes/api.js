@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const dbUri = "mongodb+srv://userayarmz:userayarmz@cluster-ayarmz-code.dodbe.mongodb.net/eventsdb?retryWrites=true&w=majority";
@@ -23,7 +24,9 @@ router.post('/register', (req, res) => {
         if (error != undefined) {
             console.log(error);
         } else {
-            res.status(200).send(registeredUser);
+            let payload = { subject: registeredUser._id };
+            let token = jwt.sign(payload, 'secretKey');
+            res.status(200).send({ token });   
         }
     });
 });
@@ -40,7 +43,9 @@ router.post('/login', (req, res) => {
             } else if (user.password !== userData.password) {
                 res.status(401).send('Invalid password');
             } else {
-                res.status(200).send(user);
+                let payload = { subject: user._id };
+                let token = jwt.sign(payload, 'secretKey');
+                res.status(200).send({ token });
             }
         }
     });
@@ -130,4 +135,5 @@ router.get('/specialevents', (req, res) => {
     ];
     res.json(events);
 });
+
 module.exports = router;

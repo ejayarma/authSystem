@@ -5,16 +5,16 @@
                 <h3 class="mb-0">Register</h3>
             </div>
             <div class="card-body">
-                <form action="" class="form" >
+                <form action="" class="form" #rf="ngForm" (ngSubmit)="registerUser()">
                     <div class="form-group">
-                        <label for="">Email</label>
-                        <input [(ngModel)]="registerUserData.email" name="email" type="text" class="form-control rounded-0" name="" id="" required>
+                        <label for="email">Email</label>
+                        <input [(ngModel)]="registerUserData.email" name="email" id="email" type="text" class="form-control rounded-0" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Password</label>
-                        <input [(ngModel)]="registerUserData.password" name="password"  type="password" class="form-control rounded-0" name="" id="" required>
+                        <label for="password">Password</label>
+                        <input [(ngModel)]="registerUserData.password" name="password" id="password" type="password" class="form-control rounded-0" required>
                     </div>
-                    <button (click)="registerUser()" class="btn btn-primary float-right">Register</button>
+                    <button class="btn btn-primary float-right">Register</button>
                 </form>
             </div>
         </div>
