@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <form [formGroup]="eventForm">
+            <div class="form-group">
+                <label for="name"></label>
+                <input type="text" id="name">
+            </div>
+            <div class="form-group">
+                <label for="description"></label>
+                <input type="text" id="description" formControlName="description">
+            </div>
+            <div formGroupName="date" class="form-group">
+                <label for="day"></label>
+                <input type="text" id="day" formControlName="day">
+                
+                <label for="month"></label>
+                <input type="text" id="month" formControlName="month">
+    
+                <label for="year"></label>
+                <input type="text" id="year" formControlName="year">
+            </div>
+            <div class="form-group">
+                <label for="type"></label>
+                <input type="text" id="type" formControlName="type">
+            </div>
+            <div class="form-group">
+                <label for="level"></label>
+                <input type="text" id="level">
+            </div>    
+        </form>
+    </div>
+</div>

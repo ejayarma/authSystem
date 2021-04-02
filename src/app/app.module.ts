@@ -7,13 +7,14 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { EventsComponent } from './events/events.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { EventsService } from './events.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { NewEventComponent } from './new-event/new-event.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,14 @@ import { TokenInterceptorService } from './token-interceptor.service';
     LoginComponent,
     EventsComponent,
     SpecialEventsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NewEventComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [

@@ -1,6 +1,8 @@
 export interface Event {
-    _id: String,
-    name: String,
-    description: String,
-    date: String
+    user_id?: String,
+    name?: String,
+    description?: String,
+    date?: String
+    type?: String,
+    level?: number
 }

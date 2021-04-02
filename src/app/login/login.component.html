@@ -8,13 +8,16 @@
                 <form action="" class="form" #rf="ngForm" (ngSubmit)="loginUser()">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input [(ngModel)]="loginUserData.email" name="email" id="email" type="text" class="form-control rounded-0" required>
+                        <input [(ngModel)]="loginUserData.email" name="email" id="email"
+                        type="email" class="form-control rounded-0" #email="ngModel" [email]="true" required>
+                        <span *ngIf="email.touched && email.errors?.email" 
+                        class="alert alert-danger">Enter a valid email address</span>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input [(ngModel)]="loginUserData.password" name="password" id="password" type="password" class="form-control rounded-0" required>
                     </div>
-                    <button class="btn btn-success float-right">Login</button>
+                    <button type="submit" class="btn btn-success float-right">Login</button>
                 </form>
             </div>
         </div>
