@@ -91,8 +91,8 @@ router.post('/login', (req, res) => {
       if (user == undefined) {
         res.status(401).send('Invalid email');
       } else {
-        plainTextPassword = userData.password;
-        hash = user.password;
+        let plainTextPassword = userData.password;
+        let hash = user.password;
         bcrypt.compare(plainTextPassword, hash, (err, result) => {
           if (err) {
             throw err;
@@ -102,7 +102,6 @@ router.post('/login', (req, res) => {
             let payload = { subject: user._id };
             let token = jwt.sign(payload, privateKEY, signOptions);
             res.status(200).send({ token });
-
           }
         });
       }
@@ -153,7 +152,7 @@ router.get('/events', (req, res) => {
   res.json(events);
 });
 
-router.post('/new-event', verifyToken, (req, res) => {
+router.post('/save-event', verifyToken, (req, res) => {
   let event = req.body;
   event = new Event(event);
   event.save((err, savedPost) => {
@@ -212,21 +211,19 @@ function verifyToken(req, res, next) {
     return res.status(401).send('Unauthorized Request');
   } else {
     let token = req.headers.authorization.split(' ')[1];
-    // console.log('Token', token);
     if (token === 'null') {
       return res.status(401).send('Unauthorized Request');
     }
     try {
       let payload = jwt.verify(token, publicKEY, verifyOptions);
-      let id = payload.subject;
-      User.findById(id, (err,     user) => {
-        // console.log('Id', user._id);
+      let id = payload.subject; 
+      User.findById(id, (err, user) => {
         if (err != undefined) {
-          console.log(err);
-        } else if (id == user._id) {
-          req.userId = id;
-        } else {
+          throw err;
+        } else if (id !== user._id) {
+          // req.userId = id;
           res.status(401).send('Unauthorized Request');
+        // } else {
         }
       });
     } catch (error) {

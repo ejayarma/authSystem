@@ -12,7 +12,8 @@ export class AuthService {
 
   private _registerUrl = 'http://localhost:3000/api/register';
   private _loginUrl = 'http://localhost:3000/api/login';
-  // private userIsAuthenticated: boolean;
+  
+  // private userIsAuthenticated: boolean = !!localStorage.getItem('token');
 
   constructor(private http: HttpClient, private _router: Router) { }
 
@@ -28,7 +29,7 @@ export class AuthService {
     return this.http.post<User>(this._loginUrl, user, options);
   }
 
-  loggedIn () {
+  get loggedIn () {
     return !!localStorage.getItem('token');
   }
 
