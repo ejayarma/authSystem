@@ -4,32 +4,36 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const Event = require('../models/event');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 // const cypto = require('crypto')
 // cypto.pbkdf2()
 const router = express.Router();
 // const ObjectId = require('mongodb').ObjectId;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const fs = require('fs');
-const appRoot = process.cwd();
-let privateKEY, publicKEY;
+// const fs = require('fs');
+// const appRoot = process.cwd();
+// let PRIVATE_KEY, PUBLIC_KEY;
 
-fs.readFile(appRoot + '/routes/private.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
-  if (err) {
-    // throw new Error('sdkfj')
-    console.log(err);
-  } else {
-    privateKEY = data;
-  }
-});
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const PUBLIC_KEY = process.env.PUBLIC_KEY;
+// console.log(PRIVATE_KEY, PUBLIC_KEY);
+// fs.readFile(appRoot + '/routes/private.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
+//   if (err) {
+//     // throw new Error('sdkfj')
+//     console.log(err);
+//   } else {
+//     PRIVATE_KEY = data;
+//   }
+// });
 
-fs.readFile(appRoot + '/routes/public.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    publicKEY = data;
-  }
-});
+// fs.readFile(appRoot + '/routes/public.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     PUBLIC_KEY = data;
+//   }
+// });
 
 var i = 'AyarmzCode Inc.';          // Issuer 
 var s = 'ayarmz@user.com';        // Subject 
@@ -39,16 +43,16 @@ var signOptions = {
   issuer: i,
   subject: s,
   audience: a,
-  expiresIn: "12h",
-  algorithm: "RS256"
+  expiresIn: '12h',
+  algorithm: 'RS256'
 };
 
 var verifyOptions = {
   issuer: i,
   subject: s,
   audience: a,
-  expiresIn: "12h",
-  algorithm: ["RS256"]
+  expiresIn: '12h',
+  algorithms: ['RS256']
 };
 
 const dbUri = "mongodb+srv://userayarmz:userayarmz@cluster-ayarmz-code.dodbe.mongodb.net/eventsdb?retryWrites=true&w=majority";
@@ -67,7 +71,7 @@ router.get('/', (req, res) => {
 router.post('/register', (req, res) => {
   let userEmail = req.body.email;
   let userPassword = req.body.password;
-  bcrypt.hash(userPassword, saltRounds, function(err, hash) {
+  bcrypt.hash(userPassword, saltRounds, function (err, hash) {
     let userData = { email: userEmail, password: hash }
     let user = new User(userData);
     user.save((error, registeredUser) => {
@@ -75,7 +79,7 @@ router.post('/register', (req, res) => {
         console.log(error);
       } else {
         let payload = { subject: registeredUser.userId };
-        let token = jwt.sign(payload, privateKEY);
+        let token = jwt.sign(payload, PRIVATE_KEY);
         res.status(200).send({ token });
       }
     });
@@ -100,7 +104,7 @@ router.post('/login', (req, res) => {
             res.status(401).send('Invalid password');
           } else {
             let payload = { subject: user._id };
-            let token = jwt.sign(payload, privateKEY, signOptions);
+            let token = jwt.sign(payload, PRIVATE_KEY, signOptions);
             res.status(200).send({ token });
           }
         });
@@ -211,24 +215,26 @@ function verifyToken(req, res, next) {
     return res.status(401).send('Unauthorized Request');
   } else {
     let token = req.headers.authorization.split(' ')[1];
+    console.log(token);
     if (token === 'null') {
       return res.status(401).send('Unauthorized Request');
     }
-    try {
-      let payload = jwt.verify(token, publicKEY, verifyOptions);
-      let id = payload.subject; 
-      User.findById(id, (err, user) => {
-        if (err != undefined) {
-          throw err;
-        } else if (id !== user._id) {
-          // req.userId = id;
-          res.status(401).send('Unauthorized Request');
+
+    let payload = jwt.verify(token, PUBLIC_KEY, verifyOptions);
+    let id = payload.subject;
+    console.log(id);
+    User.findById(id, (err, user) => {
+      if (err != undefined) {
+        throw err;
+      } else if (id == user._id) {
         // } else {
-        }
-      });
-    } catch (error) {
-      return res.status(401).send('Unauthorized Request');
-    }
+        req.userId = id;
+      } else {
+        res.status(401).send('Unauthorized Request');
+      }
+    });
+
+
     next();
   }
 

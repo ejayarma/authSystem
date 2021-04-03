@@ -10,7 +10,7 @@ export class EventsService {
 
   private _eventsUrl = 'http://localhost:3000/api/events';
   private _specialEventUrl = 'http://localhost:3000/api/specialevents';
-  private _saveEventUrl = 'http://localhost:3000/api/save-event'
+  private _saveEventUrl = 'http://localhost:3000/api/save-event';
 
   constructor(private http: HttpClient) { }
 

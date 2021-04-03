@@ -11,7 +11,7 @@
 /node_modules
 
 # keys
-/keys
+/server/.env
 
 # profiling files
 chrome-profiler-events*.json
