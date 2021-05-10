@@ -9,8 +9,10 @@
 
 # dependencies
 /node_modules
+/server/node_modules
 
 # keys
+/server/.env
 
 # profiling files
 chrome-profiler-events*.json
