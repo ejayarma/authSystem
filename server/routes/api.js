@@ -5,35 +5,14 @@ const User = require('../models/user');
 const Event = require('../models/event');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-// const cypto = require('crypto')
-// cypto.pbkdf2()
 const router = express.Router();
-// const ObjectId = require('mongodb').ObjectId;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-// const fs = require('fs');
-// const appRoot = process.cwd();
-// let PRIVATE_KEY, PUBLIC_KEY;
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const PUBLIC_KEY = process.env.PUBLIC_KEY;
-// console.log(PRIVATE_KEY, PUBLIC_KEY);
-// fs.readFile(appRoot + '/routes/private.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
-//   if (err) {
-//     // throw new Error('sdkfj')
-//     console.log(err);
-//   } else {
-//     PRIVATE_KEY = data;
-//   }
-// });
 
-// fs.readFile(appRoot + '/routes/public.key', { encoding: 'utf8', flag: 'r' }, (err, data) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     PUBLIC_KEY = data;
-//   }
-// });
+// const PRIVATE_KEY = process.env.PRIVATE_KEY;
+// const PUBLIC_KEY = process.env.PUBLIC_KEY;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 var i = 'AyarmzCode Inc.';          // Issuer 
 var s = 'ayarmz@user.com';        // Subject 
@@ -79,7 +58,7 @@ router.post('/register', (req, res) => {
         console.log(error);
       } else {
         let payload = { subject: registeredUser.userId };
-        let token = jwt.sign(payload, PRIVATE_KEY);
+        let token = jwt.sign(payload, SECRET_KEY);
         res.status(200).send({ token });
       }
     });
@@ -104,7 +83,7 @@ router.post('/login', (req, res) => {
             res.status(401).send('Invalid password');
           } else {
             let payload = { subject: user._id };
-            let token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+            let token = jwt.sign(payload, SECRET_KEY);
             res.status(200).send({ token });
           }
         });
@@ -220,7 +199,7 @@ function verifyToken(req, res, next) {
       return res.status(401).send('Unauthorized Request');
     }
 
-    let payload = jwt.verify(token, PUBLIC_KEY, verifyOptions);
+    let payload = jwt.verify(token, SECRET_KEY);
     let id = payload.subject;
     console.log(id);
     User.findById(id, (err, user) => {
