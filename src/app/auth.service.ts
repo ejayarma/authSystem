@@ -17,13 +17,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private _router: Router) { }
 
-  registerUser(user) : Observable<any> {
+  registerUser(user: User) : Observable<any> {
     
     let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
     return this.http.post<User>(this._registerUrl, user, options);
   }
 
-  loginUser(user) : Observable<any> {
+  loginUser(user: User) : Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     let options = {headers: headers};
     return this.http.post<User>(this._loginUrl, user, options);
