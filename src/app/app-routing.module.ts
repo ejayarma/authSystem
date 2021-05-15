@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: 'new-event',
     component: NewEventComponent,
-    canActivate: [ AuthGuard ]
+    // canActivate: [ AuthGuard ]
   },
   {
     path:'**',

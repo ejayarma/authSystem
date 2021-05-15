@@ -1,7 +1,40 @@
+.form-wrapper {
+    margin: 1.5em auto;
+}
+
+.date-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
 [formGroupName="date"] {
     margin-bottom: 1em;
 }
 
-.date-item {
-    display: inline-block;
+label.main {
+    font-weight:500;
+}
+.date-item input {
+    width: 60%;
+}
+
+h4 {
+    margin-bottom: 1em;
+}
+
+textarea {
+    height: 7em;
+}
+
+.att-wrapper input {
+    display: inline;
+    width: 1em;
+    margin-left: 1em;
+}
+
+.att-wrapper span {
+    display: inline-flex;
+    justify-content:left;
+    align-items:baseline;
+    width: 50%;
 }

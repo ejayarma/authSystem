@@ -1,40 +1,65 @@
 <div class="row">
-    <div class="col-md-10">
-        <form  [formGroup]="eventForm"  class="form" >
+    <div class="col-md-7 form-wrapper">
+        <form [formGroup]="eventForm" class="form" (ngSubmit)="createEvent(eventForm.value)">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input class="form-control" type="text" id="name" name="name" placeholder="">
+                <h4>Create a new event</h4>
+                <label class="main" for="name">Name</label>
+                <input class="form-control" type="text" id="name" formControlName="name" name="name" placeholder="">
             </div>
             <div class="form-group">
-                <label for="description">Description</label>
-                <input class="form-control" type="text" id="description" formControlName="description" name="description">
+                <label class="main" for="description">Description</label>
+                <!-- <input class="form-control" type="text" id="description" formControlName="description" name="description"> -->
+                <textarea class="form-control" formControlName="description" name="description"
+                    id="description"></textarea>
             </div>
             <div formGroupName="date">
-                <h4>Date</h4>
-                <div class="col-md-3 date-item">
-                    <label for="day">Day</label>
-                    <input class="form-control" type="text" id="day" formControlName="day">
+                <label class="main">Date</label>
+                <div class="date-wrapper">
+                    <div class="form-group">
+                        <label for="day">Day</label>
+                        <!-- <input class="form-control" type="text" id="day" formControlName="day"> -->
+                        <select class="form-control" name="day" id="day" formControlName="day">
+                            <option *ngFor="let day of days" value="{{day}}">{{day}}</option>
+                            <option *ngIf="m.value !='Feb' || m.value=='Feb' && isLeapYear(y.value)" value="29">29
+                            </option>
+                            <option *ngIf="m.value !='Feb'">30</option>
+                            <option *ngIf="m.value !='Feb' && !hasOnlyThirty(m.value)" value="31">31</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="month">Month</label>
+                        <!-- <input class="form-control" type="text" id="month" formControlName="month"> -->
+                        <select #m class="form-control" name="month" id="month" formControlName="month">
+                            <option *ngFor="let m of months" value="{{m}}">{{m}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <!-- <input class="form-control" type="text" id="year" formControlName="year"> -->
+                        <select #y class="form-control" name="year" id="year" formControlName="year">
+                            <option *ngFor="let y of years" value="{{y}}">{{y}}</option>
+                        </select>
+                    </div>
                 </div>
-
-                <div class="col-md-3 date-item">
-                    <label for="month">Month</label>
-                    <input class="form-control" type="text" id="month" formControlName="month">
-                </div>
-
-                <div class="col-md-3 date-item">
-                    <label for="year">Year</label>
-                    <input class="form-control" type="text" id="year" formControlName="year">
-                </div>
+            </div>
+            <div class="form-group att-wrapper">
+                <label class="main" for="type">Attendance Type</label><br />
+                <span>
+                    <label for="open">Open</label>
+                    <input selected id="open" type="radio" class="form-control" value="0"
+                        formControlName="attendance_type">
+                </span>
+                <span>
+                    <label for="m-only">Members Only</label>
+                    <input id="m-only" type="radio" class="form-control" value="1" formControlName="attendance_type">
+                </span>
             </div>
             <div class="form-group">
-                <label for="type">Type</label>
-                <input class="form-control" type="text" id="type" formControlName="type">
+                <label class="main" for="venue">Venue</label>
+                <input class="form-control" type="text" id="venue" formControlName="venue">
             </div>
-            <div class="form-group">
-                <label for="level">Level</label>
-                <input class="form-control" type="text" id="level">
-            </div>
-            <button type="submit" [disabled]="true" class="btn btn-primary float-right">Save</button>
+            <button (click)="cancel()" class="btn btn-warning float-left">Cancel</button>
+            <button type="submit" [disabled]="eventForm.invalid" class="btn btn-success float-right">Save</button>
         </form>
     </div>
 </div>
