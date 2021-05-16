@@ -41,6 +41,22 @@
                         </select>
                     </div>
                 </div>
+                <label class="main">Time</label>
+                <div class="time-wrapper">
+                    <div class="form-group">
+                        <label for="hours"></label>
+                        <select name="hours" formControlName="hours" id="hours" class="form-control">
+                            <option *ngFor="let h of hours" value="{{h}}">{{h}}</option>
+                        </select>
+                    </div>
+                    <span>&nbsp; : &nbsp;</span>
+                    <div class="form-group">
+                        <label for="mins"></label>
+                        <select name="mins" formControlName="mins" id="mins" class="form-control">
+                            <option *ngFor="let min of mins" value="{{min}}">{{min}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-group att-wrapper">
                 <label class="main" for="type">Attendance Type</label><br />

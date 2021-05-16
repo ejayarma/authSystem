@@ -9,8 +9,8 @@ import { User } from './register/User';
 })
 export class AuthService {
 
-  private _registerUrl = 'http://localhost:3000/api/register';
-  private _loginUrl = 'http://localhost:3000/api/login';
+  private _registerUrl = 'http://localhost:3000/auth/register';
+  private _loginUrl = 'http://localhost:3000/auth/login';
   
   // private userIsAuthenticated: boolean = !!localStorage.getItem('token');
 
@@ -35,6 +35,10 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  // get currentUserId() {
+  //   return this.getToken();
+  // }
 
   logoutUser() {
     localStorage.removeItem('token');

@@ -1,18 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-
-const api = require('./apis/api');
-
+const events = require('./apis/events');
+const auth = require('./apis/auth');
+const connectDb = require('./apis/db');
 const PORT = 3000
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ 
     extended: true 
 }));
-
 app.use(cors());
-app.use('/api', api);
+
+connectDb();
+app.use('/auth', auth)
+app.use('/events', events);
 
 app.get('/', (req, res) => {
     res.send('Hello form Server');

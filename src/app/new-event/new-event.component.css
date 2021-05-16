@@ -7,15 +7,21 @@
     justify-content: space-between;
 }
 
+.time-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.time-wrapper .form-control, .date-wrapper .form-control {
+    width: 5em;
+}
+
 [formGroupName="date"] {
     margin-bottom: 1em;
 }
 
 label.main {
     font-weight:500;
-}
-.date-item input {
-    width: 60%;
 }
 
 h4 {

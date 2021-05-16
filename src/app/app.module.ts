@@ -15,6 +15,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { NewEventComponent } from './new-event/new-event.component';
+import { UserEventsComponent } from './user-events/user-events.component';
+import { ShowEventsComponent } from './show-events/show-events.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NewEventComponent } from './new-event/new-event.component';
     EventsComponent,
     SpecialEventsComponent,
     PageNotFoundComponent,
-    NewEventComponent
+    NewEventComponent,
+    UserEventsComponent,
+    ShowEventsComponent
   ],
   imports: [
     BrowserModule,
