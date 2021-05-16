@@ -12,7 +12,8 @@ import { Event } from '../events/event';
 
 export class SpecialEventsComponent implements OnInit {
 
-  specialEvents: Event[] = [];
+  specialEvents: Event[];
+  buttonType = 'btn-success';
 
   constructor(private _eventService: EventsService, 
     private _router: Router) { }

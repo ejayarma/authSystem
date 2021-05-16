@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
+import { UserEventsComponent } from './user-events/user-events.component';
+
 
 const routes: Routes = [
   {
@@ -34,6 +36,11 @@ const routes: Routes = [
   {
     path: 'new-event',
     component: NewEventComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'my-events',
+    component: UserEventsComponent,
     canActivate: [ AuthGuard ]
   },
   {

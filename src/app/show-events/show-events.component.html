@@ -1,0 +1,35 @@
+<div *ngIf="events.length==0" class="mt-5">
+    <h6 class="text-muted text-center">No events to show</h6>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4 mb-3" *ngFor="let event of events">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{event?.name}}</h5>
+                <p class="card-text">{{event?.description}}</p>
+                <a routerLink="./" class="btn {{ btnType ? btnType : 'btn-primary' }}">Attend</a>
+            </div>
+            <div class="card-footer text-muted text-left">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-fill" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>&nbsp;
+                    {{event?.date | date}}
+                </span><br />
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                      </svg>&nbsp;
+                      {{event?.date | date:'shortTime' }}
+                </span><br/>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                    </svg>
+                    &nbsp;{{ event?.venue }}
+                </span><br />
+                <span *ngIf="btnType" class="badge badge-warning float-right">{{ event?.attendance_type ? 'Members Only' : 'Open' }}</span><br />
+            </div>
+        </div>
+    </div>
+</div>

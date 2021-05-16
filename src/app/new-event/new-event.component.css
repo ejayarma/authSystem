@@ -1,7 +1,46 @@
+.form-wrapper {
+    margin: 1.5em auto;
+}
+
+.date-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.time-wrapper .form-control, .date-wrapper .form-control {
+    width: 5em;
+}
+
 [formGroupName="date"] {
     margin-bottom: 1em;
 }
 
-.date-item {
-    display: inline-block;
+label.main {
+    font-weight:500;
+}
+
+h4 {
+    margin-bottom: 1em;
+}
+
+textarea {
+    height: 7em;
+}
+
+.att-wrapper input {
+    display: inline;
+    width: 1em;
+    margin-left: 1em;
+}
+
+.att-wrapper span {
+    display: inline-flex;
+    justify-content:left;
+    align-items:baseline;
+    width: 50%;
 }

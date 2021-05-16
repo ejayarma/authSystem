@@ -5,9 +5,9 @@ const eventSchema = new Schema({
     user_id: String,
     name: String,
     description: String,
-    type: String,
+    attendance_type: Number,
     date: Date,
-    level: String
+    venue: String,
 });
 
 module.exports = mongoose.model('Event', eventSchema, 'events');
